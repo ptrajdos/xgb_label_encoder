@@ -38,7 +38,7 @@ clean:
 
 venv:
 	${SYSPYTHON} -m venv --upgrade-deps ${VENV_OPTIONS} ${VENV_SUBDIR}
-	${ACTIVATE}; ${PYTHON} -m ${PIP} install -e ${ROOTDIR}[test,experiments] --prefer-binary --log ${INSTALL_LOG_FILE}
+	${ACTIVATE}; ${PYTHON} -m ${PIP} install -e ${ROOTDIR}[test] --prefer-binary --log ${INSTALL_LOG_FILE}
 
 test: venv
 	mkdir -p ${LOGDIR}  
