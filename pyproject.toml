@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clf_classifier_label_enc"
+dynamic = ["version", "readme"]
+dependencies = [
+    'scikit-learn>=1.6.0',
+    'xgboost>=3.0.2',
+]
+requires-python = ">=3.10"
+authors = [
+  {name = "Pawel Trajdos", email = "pawel.trajdos@pwr.edu.pl"},
+]
+maintainers = [
+  {name = "Pawel Trajdos", email = "pawel.trajdos@pwr.edu.pl"}
+]
+description = "Classifier with Label encoder"
+
+license = "BSD-3-Clause"
+license-files = ["LICEN[CS]E.*"]
+keywords = ["xgblabelencoder"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "clf_label_encoder.__version__"}  # any module attribute compatible with ast.literal_eval
+readme = {file = ["README.md"]}
+
+[project.urls]
+Repository = "https://github.com/ptrajdos/xgb_label_encoder.git"
+
+[project.optional-dependencies]
+test = [
+    'coverage==7.8.0',
+    'unittest-parallel==1.5.3',
+    'pandas>=2.0.0',
+    'pdoc3==0.11.1',
+    'pytest==8.3.5',
+    'pytest-cov==6.1.1',
+    'pytest-profiling==1.8.1',
+    'pytest-xdist==3.6.1',
+    'snakeviz==2.2.2',
+    'pytest-timer==1.0.0',
+]
+
+[tool.setuptools]
+packages = { find = { include = ["clf_label_encoder", "clf_label_encoder.*"] } }
