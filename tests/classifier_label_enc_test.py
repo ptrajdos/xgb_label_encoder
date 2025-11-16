@@ -9,6 +9,11 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.datasets import load_iris
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import cohen_kappa_score
+
+
+
 
 
 class ClassifierWithLabelEncoderTest(unittest.TestCase):
@@ -54,16 +59,23 @@ class ClassifierWithLabelEncoderTest(unittest.TestCase):
     def test_iris(self):
         X, y = load_iris(return_X_y=True)
 
+        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+
+
         dtypes = [np.str_, np.int_]
         for clf_name, clf in self.get_estimators().items():
             for dty in dtypes:
                 with self.subTest(clf_name=clf_name, dty=dty):
-                    y_t = np.astype(y, dtypes[0])
+                    y_t = np.astype(y_train, dty)
+                    y_test_dty = np.astype(y_test, dty)
                     y_t_u = np.unique(y_t)
 
-                    clf.fit(X, y_t)
-                    y_pred = clf.predict(X)
+                    clf.fit(X_train, y_t)
+                    y_pred = clf.predict(X_test)
                     self.assertTrue(np.isin(y_pred, y_t_u).all(), "Predicted class is not known")
+                    kappa_score = cohen_kappa_score(y_pred, y_test_dty)
+                    self.assertTrue(kappa_score>=0, "Kappa score is negative")
+
 
 
 if __name__ == "__main__":
