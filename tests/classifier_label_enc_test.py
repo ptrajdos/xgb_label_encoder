@@ -53,13 +53,17 @@ class ClassifierWithLabelEncoderTest(unittest.TestCase):
 
     def test_iris(self):
         X, y = load_iris(return_X_y=True)
+
         dtypes = [np.str_, np.int_]
         for clf_name, clf in self.get_estimators().items():
             for dty in dtypes:
                 with self.subTest(clf_name=clf_name, dty=dty):
                     y_t = np.astype(y, dtypes[0])
+                    y_t_u = np.unique(y_t)
+
                     clf.fit(X, y_t)
                     y_pred = clf.predict(X)
+                    self.assertTrue(np.isin(y_pred, y_t_u).all(), "Predicted class is not known")
 
 
 if __name__ == "__main__":
