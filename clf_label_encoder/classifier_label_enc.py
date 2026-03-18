@@ -26,6 +26,7 @@ def _estimator_has(attr):
 
     return check
 
+#TODO needs rewrite to be a mixin pattern.
 
 class ClassifierWithLabelEncoder(ClassifierMixin, BaseEstimator):
     def __init__(self, estimator_class=None, estimator_options=None):
