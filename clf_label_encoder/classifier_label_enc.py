@@ -1,8 +1,8 @@
 from sklearn.base import BaseEstimator, ClassifierMixin, check_is_fitted
 from sklearn.calibration import LabelEncoder
 from sklearn.multiclass import available_if
-from xgboost import XGBClassifier
 import numpy as np
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.multiclass import type_of_target
 import logging
 
@@ -26,7 +26,9 @@ def _estimator_has(attr):
 
     return check
 
-#TODO needs rewrite to be a mixin pattern.
+
+# TODO needs rewrite to be a mixin pattern.
+
 
 class ClassifierWithLabelEncoder(ClassifierMixin, BaseEstimator):
     def __init__(self, estimator_class=None, estimator_options=None):
@@ -35,7 +37,7 @@ class ClassifierWithLabelEncoder(ClassifierMixin, BaseEstimator):
 
     def _get_effective_model(self):
         effective_estim_class = (
-            self.estimator_class if self.estimator_class else XGBClassifier
+            self.estimator_class if self.estimator_class else DecisionTreeClassifier
         )
         effective_estim_options = (
             self.estimator_options if self.estimator_options else {"random_state": 0}

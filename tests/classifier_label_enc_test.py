@@ -1,6 +1,4 @@
 import unittest
-
-from xgboost import XGBClassifier
 from clf_label_encoder.classifier_label_enc import ClassifierWithLabelEncoder
 from sklearn.utils.estimator_checks import check_estimator
 from sklearn.tree import DecisionTreeClassifier
