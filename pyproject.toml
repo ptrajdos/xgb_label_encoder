@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "clf_classifier_label_enc"
 dynamic = ["version", "readme"]
 dependencies = [
-    'scikit-learn>=1.3.0',
+    'scikit-learn>=1.6.0',
 ]
 requires-python = ">=3.9"
 authors = [
@@ -19,7 +19,7 @@ description = "Classifier with Label encoder"
 
 license = "BSD-3-Clause"
 license-files = ["LICEN[CS]E.*"]
-keywords = ["xgblabelencoder"]
+keywords = ["labelencoder"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python"
