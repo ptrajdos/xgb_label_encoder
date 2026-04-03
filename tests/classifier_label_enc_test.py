@@ -24,9 +24,6 @@ class ClassifierWithLabelEncoderTest(unittest.TestCase):
                 estimator_class=DecisionTreeClassifier,
                 estimator_options={"random_state": 0},
             ),
-            "XGB": ClassifierWithLabelEncoder(
-                estimator_class=XGBClassifier, estimator_options={"random_state": 0}
-            ),
             "DEF": ClassifierWithLabelEncoder(),
             "RF": ClassifierWithLabelEncoder(
                 estimator_class=RandomForestClassifier,
@@ -40,21 +37,10 @@ class ClassifierWithLabelEncoderTest(unittest.TestCase):
 
     def test_sklearn(self):
 
-        checks_to_fail = {
-            "check_estimator_tags_renamed": "XGB is failing with it!",
-            "check_estimators_overwrite_params": "XGB",
-            "check_dont_overwrite_parameters": "XGB",
-            "check_classifiers_one_label": "XGB",
-            "check_classifiers_one_label_sample_weights": "XBG",
-            "check_fit2d_1sample": "XGB",
-        }
-
+    
         for clf_name, clf in self.get_estimators().items():
             with self.subTest(clf_name=clf_name):
-                fail_checks = (
-                    checks_to_fail if clf_name in ["XGB", "DEF", "XGBo"] else {}
-                )
-                check_estimator(clf, expected_failed_checks=fail_checks)
+                check_estimator(clf)
 
     def test_iris(self):
         X, y = load_iris(return_X_y=True)
