@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.utils.multiclass import type_of_target
 import logging
+from sklearn.base import clone
 
 
 def _estimator_has(attr):
@@ -26,19 +27,16 @@ def _estimator_has(attr):
 
     return check
 
-class ClassifierWithLabelEncoder(ClassifierMixin, BaseEstimator):
-    def __init__(self, estimator_class=None, estimator_options=None):
-        self.estimator_class = estimator_class
-        self.estimator_options = estimator_options
+class ClassifierWithLabelEncoder2(ClassifierMixin, BaseEstimator):
+    def __init__(self, estimator=None):
+        self.estimator = estimator
 
     def _get_effective_model(self):
-        effective_estim_class = (
-            self.estimator_class if self.estimator_class else DecisionTreeClassifier
-        )
-        effective_estim_options = (
-            self.estimator_options if self.estimator_options else {"random_state": 0}
-        )
-        return effective_estim_class(**effective_estim_options)
+        
+        if self.estimator is not None:
+            return  clone(self.estimator)
+        
+        return DecisionTreeClassifier(random_state=0)
 
     def _create_encoder(self, X, y):
 
